@@ -1,5 +1,6 @@
 import mysql from 'mysql2';
 import inquirer from 'inquirer';
+import sqlFunction from './sqlFunction.js';
 
 // Connect to database
 const db = mysql.createConnection(
@@ -14,7 +15,6 @@ const db = mysql.createConnection(
 
 db.connect(err => {
     if (err) throw err;
-    console.log('Database connected.');
 });
 
 // employee names as an array to update them
@@ -35,7 +35,7 @@ const questions = [
         message: 'What is the name of the department?'
     },
     {
-        when: (choice) => choice.addDepartment === '',
+        when: (choice) => choice.choose === 'Add Role',
         type: 'input',
         name: 'addRole',
         message: 'What is the name of the Role?'
@@ -44,13 +44,14 @@ const questions = [
         when: (choice) => choice.choose === 'Add Role',
         type: 'input',
         name: 'salary',
-        message: 'What is the salary of the role'
+        message: 'What is the salary of the role?'
     },
     {
         when: (choice) => choice.choose === 'Add Role',
-        type: 'input',
+        type: 'list',
         name: 'department',
-        message: 'Which department does the role belong to?'
+        message: 'Which department does the role belong to?',
+        choices: ['Front-of-House', 'Back-of-House', 'Accounting', 'Marketing', 'Ownership']
     },
     {
         when: (choice) => choice.choose === 'Add Employee',
@@ -83,12 +84,22 @@ const questions = [
         message: "Which employee's role would you like to update?",
         choices: [employees]
     },
+    {
+        type: 'confirm',
+        name: 'askAgain',
+        message: 'Would you like to do anything else?',
+        default: 'true'
+    }
 ]
 
 const ask = () => {
     inquirer.prompt(questions).then((data) => {
-
+        if (data.askAgain) {
+            ask()
+        } else {sqlFunction(data)}
     })
 };
 
 ask();
+
+export default db;

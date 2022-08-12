@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS employee;
 
 CREATE TABLE department (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(50) NOT NULL,
+  name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE job (
@@ -20,6 +20,6 @@ CREATE TABLE employee (
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   job_id INTEGER NOT NULL,
-  manager_id INTEGER,
-  CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES job(title)
+  manager_id INTEGER
+  CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
