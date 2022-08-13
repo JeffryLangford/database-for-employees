@@ -17,9 +17,6 @@ db.connect(err => {
     if (err) throw err;
 });
 
-// employee names as an array to update them
-const employees = [];
-
 // questions for inquirer
 const questions = [
     {
@@ -82,7 +79,7 @@ const questions = [
         type: 'list',
         name: 'updateEmployee',
         message: "Which employee's role would you like to update?",
-        choices: [employees]
+        choices: `SELECT first_name, last_name FROM employee`
     },
     {
         type: 'confirm',

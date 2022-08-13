@@ -29,7 +29,7 @@ INSERT INTO employee
     (first_name, last_name, job_id, manager_id)
 VAlUES
     ('James', 'Fraser', 1, 24),
-    ('Jack', 'London', 1, 24);
+    ('Jack', 'London', 1, 24),
     ('Robert', 'Bruce', 1, 24),
     ('Peter', 'Greenaway', 1, 24),
     ('Derek', 'Jarman', 1, 24),
